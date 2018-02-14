@@ -20,7 +20,11 @@ class ProductResource extends Resource
           'name'=>$this->name,
           'description'=>$this->detail,
           'price'=>$this->price,
-          'stock'=>$this->stock
+          'stock'=>$this->stock,
+          'rating'=>$this->reviews->count()>0 ? round($this->reviews->sum('star')/$this->reviews->count(),2) : 'Puan verilmemiş',
+          'href'=>[
+              'reviews'=>route('review.index',$this->id)
+          ]
         ];
     }
 }
